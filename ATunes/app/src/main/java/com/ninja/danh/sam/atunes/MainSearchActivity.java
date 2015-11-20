@@ -9,5 +9,6 @@ public class MainSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_search);
+        new ItunesAPISearch().execute("drake");
     }
 }
