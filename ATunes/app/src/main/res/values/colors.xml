@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--material design color scheme-->
+    <color name="mPrimary">#6F8E94</color>
+    <color name="mPrimaryDark">#627D83</color>
+    <color name="white">#FFFFFF</color>
+
 </resources>

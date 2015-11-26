@@ -2,6 +2,7 @@ package com.ninja.danh.sam.atunes;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.ninja.danh.sam.atunes.ITunesAPI;
@@ -24,7 +25,13 @@ public class MainSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_search);
         new ItunesAPISearch().execute("drake");
 
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
         this.searchItem();
+
+
 
     }
 
