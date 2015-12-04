@@ -36,7 +36,7 @@ public class MainSearchActivity extends AppCompatActivity {
     }
 
     public void searchItem() {
-        String url = "https://itunes.apple.com/search?term=beyonce&limit=10";
+        String url = "https://itunes.apple.com/search?term=drake&limit=5";
         RestAdapter retrofit = new RestAdapter.Builder()
                 .setEndpoint(url)
                 .build();
@@ -49,6 +49,13 @@ public class MainSearchActivity extends AppCompatActivity {
                 for (int i = 0; i < tracks.size(); i++) {
                     Log.i("success", tracks.get(i).getTrackName());
                 }
+
+                DatabaseHandler dbHandler = new DatabaseHandler(MainSearchActivity.this);
+                dbHandler.addFavorite(tracks.get(0));
+                Result res = dbHandler.getResult(780330308);
+
+                Log.i("testing", res.getTrackName());
+
             }
 
             @Override
