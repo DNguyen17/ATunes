@@ -1,5 +1,7 @@
 package com.ninja.danh.sam.atunes;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,20 +25,28 @@ public class MainSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_search);
-        new ItunesAPISearch().execute("drake");
+        //new ItunesAPISearch().execute("drake");
 
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        this.searchItem();
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager(),
+                MainSearchActivity.this));
 
+        // Give the TabLayout the ViewPagker
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
+        //this.searchItem("Drake");
+        this.getFavorites();
 
     }
 
-    public void searchItem() {
-        String url = "https://itunes.apple.com/search?term=drake&limit=5";
+    public void searchItem(String term) {
+        String url = "https://itunes.apple.com/search?term=" + term + "&limit=5";
         RestAdapter retrofit = new RestAdapter.Builder()
                 .setEndpoint(url)
                 .build();
@@ -46,16 +56,9 @@ public class MainSearchActivity extends AppCompatActivity {
             @Override
             public void success(ITunesObj iTunesObj, Response response) {
                 List<Result> tracks = iTunesObj.getResults();
-                for (int i = 0; i < tracks.size(); i++) {
+                /*for (int i = 0; i < tracks.size(); i++) {
                     Log.i("success", tracks.get(i).getTrackName());
-                }
-
-                DatabaseHandler dbHandler = new DatabaseHandler(MainSearchActivity.this);
-                dbHandler.addFavorite(tracks.get(0));
-                Result res = dbHandler.getResult(780330308);
-
-                Log.i("testing", res.getTrackName());
-
+                }*/
             }
 
             @Override
@@ -63,5 +66,16 @@ public class MainSearchActivity extends AppCompatActivity {
                 Log.i("fail", error.toString());
             }
         });
+    }
+
+    public List<Result> getFavorites() {
+        DatabaseHandler dbHandler = new DatabaseHandler(MainSearchActivity.this);
+        List<Result> favs = dbHandler.getAll();
+
+        for (int i = 0; i < favs.size(); i++) {
+            Log.i("testing", favs.get(i).getTrackName());
+        }
+
+        return favs;
     }
 }

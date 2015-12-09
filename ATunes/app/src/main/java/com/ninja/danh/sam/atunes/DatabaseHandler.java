@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Danh on 11/25/2015.
  */
@@ -74,5 +77,40 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         result.setWrapperType(cursor.getString(9));
 
         return result;
+    }
+
+    public List<Result> getAll() {
+        List<Result> list = new ArrayList<Result>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Result result = new Result();
+                result.setTrackId(Integer.parseInt(cursor.getString(0)));
+                result.setTrackName(cursor.getString(1));
+                result.setArtistName(cursor.getString(2));
+                result.setCollectionName(cursor.getString(3));
+                result.setArtworkUrl100(cursor.getString(4));
+                result.setPreviewUrl(cursor.getString(5));
+                result.setTrackExplicitness(cursor.getString(6));
+                result.setTrackPrice(Double.parseDouble(cursor.getString(7)));
+                result.setKind(cursor.getString(8));
+                result.setWrapperType(cursor.getString(9));
+                list.add(result);
+            } while (cursor.moveToNext());
+        }
+
+        return list;
+
+    }
+
+    public void delete() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+
     }
 }
