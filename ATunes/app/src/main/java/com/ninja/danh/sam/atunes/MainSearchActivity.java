@@ -36,12 +36,9 @@ public class MainSearchActivity extends AppCompatActivity {
         viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager(),
                 MainSearchActivity.this));
 
-        // Give the TabLayout the ViewPagker
+        // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-        //this.searchItem("Drake");
-        this.getFavorites();
 
     }
 
