@@ -8,12 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 /**
  * Created by Danh on 12/9/2015.
  */
-public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+public class ATunesFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     private String tabTitles[] = new String[] { "Search", "Favorites"};
     private Context context;
 
-    public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public ATunesFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -25,7 +25,10 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PageFragment.newInstance(position + 1);
+        if (position == 0)
+            return PageFragment.newInstance(position + 1);
+        else
+            return FavePageFragment.newInstance(position + 1);
     }
 
     @Override
