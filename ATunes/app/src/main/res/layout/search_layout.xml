@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/simpleSearchField"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:hint="Music Video Search Terms"
+        android:layout_marginTop="35dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search!"
+        android:id="@+id/simpleSearchButton"
+        android:layout_below="@+id/simpleSearchField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Advanced Search"
+        android:layout_below="@+id/simpleSearchButton"
+        android:id="@+id/advancedSearchSwitchButton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:id="@+id/advancedSearchTitleField"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Artist"
+        android:id="@+id/advancedSearchAristField"
+        android:layout_below="@+id/advancedSearchTitleField"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Genre"
+        android:id="@+id/advancedSearchGenreField"
+        android:layout_below="@+id/advancedSearchAristField"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
