@@ -60,16 +60,15 @@ public class ResultsActivity extends AppCompatActivity {
             final Result track = objects.get(position);
             TextView title = (TextView)row.findViewById(R.id.result_item_title);
             TextView artist = (TextView)row.findViewById(R.id.result_item_artist);
-            TextView price = (TextView)row.findViewById(R.id.result_item_price);
             TextView explicit = (TextView)row.findViewById(R.id.result_item_explicitness);
 
             if (track.getTrackExplicitness().equals("explicit")) {
                 explicit.setText("E");
+                //Log.d("explicitness", track.getTrackName());
             }
 
             title.setText(track.getTrackName());
             artist.setText(track.getArtistName());
-            price.setText(track.getTrackPrice().toString());
 
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,8 +81,5 @@ public class ResultsActivity extends AppCompatActivity {
 
             return row;
         }
-
-        }
-
-
+    }
 }

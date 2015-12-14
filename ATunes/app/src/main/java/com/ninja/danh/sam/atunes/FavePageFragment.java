@@ -94,32 +94,36 @@ public class FavePageFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             View row;
-            /*LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE );
-            row = inflater.inflate(resource, parent, false);*/
-
             if (convertView == null) {
-                //LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 row = inflater.inflate(resource, parent, false);
             } else {
-                Log.d("recycleview", "I am recycling a view for element " + position);
+                //Log.d("recycleview", "I am recycling a view for element " + position);
                 row = convertView;
             }
 
             final Result track = objects.get(position);
-            Log.d("create table", track.getTrackName());
             TextView title = (TextView)row.findViewById(R.id.result_item_title);
             TextView artist = (TextView)row.findViewById(R.id.result_item_artist);
-            TextView price = (TextView)row.findViewById(R.id.result_item_price);
             TextView explicit = (TextView)row.findViewById(R.id.result_item_explicitness);
 
             if (track.getTrackExplicitness().equals("explicit")) {
                 explicit.setText("E");
+                //Log.d("explicitness", track.getTrackName());
             }
 
             title.setText(track.getTrackName());
             artist.setText(track.getArtistName());
-            price.setText(track.getTrackPrice().toString());
+
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ResultDetailActivity.class);
+                    intent.putExtra("result", track);
+                    startActivity(intent);
+                }
+            });
 
             return row;
         }

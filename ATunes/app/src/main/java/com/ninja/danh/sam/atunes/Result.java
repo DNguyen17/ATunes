@@ -51,7 +51,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "radioStationUrl",
         "isStreamable",
         "collectionArtistId",
-        "collectionArtistName"
+        "collectionArtistName",
+        "description"
 })
 public class Result implements Parcelable {
 
@@ -126,6 +127,8 @@ public class Result implements Parcelable {
     private Integer collectionArtistId;
     @JsonProperty("collectionArtistName")
     private String collectionArtistName;
+    @JsonProperty("description")
+    private String description;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -151,7 +154,15 @@ public class Result implements Parcelable {
             dest.writeString(trackExplicitness);
         else
             dest.writeString("");
-        dest.writeString(artworkUrl100);
+        if (artworkUrl100 != null)
+            dest.writeString(artworkUrl100);
+        else
+            dest.writeString("");
+        if (description != null)
+            dest.writeString(description);
+        else
+            dest.writeString("");
+
     }
 
     public int describeContents() {
@@ -178,6 +189,7 @@ public class Result implements Parcelable {
         trackPrice      = pc.readDouble();
         trackExplicitness = pc.readString();
         artworkUrl100   = pc.readString();
+        description     = pc.readString();
     }
 
     /**
@@ -878,6 +890,26 @@ public class Result implements Parcelable {
     @JsonProperty("collectionArtistName")
     public void setCollectionArtistName(String collectionArtistName) {
         this.collectionArtistName = collectionArtistName;
+    }
+
+    /**
+     *
+     * @return
+     *     The collectionArtistName
+     */
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     *
+     * @param collectionArtistName
+     *     The collectionArtistName
+     */
+    @JsonProperty("description")
+    public void setDescription(String collectionArtistName) {
+        this.description = description;
     }
 
     @JsonAnyGetter
