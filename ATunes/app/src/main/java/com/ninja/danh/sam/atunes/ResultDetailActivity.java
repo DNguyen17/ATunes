@@ -32,6 +32,9 @@ public class ResultDetailActivity extends AppCompatActivity {
         loadDetails(result_detail);
         ButterKnife.bind(this);
         result = result_detail;
+        if (isFavorite()) {
+            favoriteButton.setText("Remove from Favorites");
+        }
     }
 
     protected void setImage(String image_url) {
@@ -66,6 +69,8 @@ public class ResultDetailActivity extends AppCompatActivity {
             description.setText(result.getDescription());
         }
 
+
+
     }
 
     @OnClick (R.id.favorite_button)
@@ -79,5 +84,13 @@ public class ResultDetailActivity extends AppCompatActivity {
         ft.commit();*/
 
 
+    }
+
+    public boolean isFavorite() {
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
+        Result res = dbHandler.getResult(result.getTrackName());
+        if (res.getTrackId() == -1)
+            return false;
+        return true;
     }
 }

@@ -79,6 +79,38 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return result;
     }
 
+    public Result getResult(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[]{"trackId", "trackName", "artistName",
+                        "collectionName", "artworkUrl100", "previewUrl", "trackExplicitness",
+                        "trackPrice", "kind", "wrapperType"}, "trackName" + "=?",
+                new String[]{id}, null, null, null, null);
+
+        boolean tb = false;
+        if (cursor != null)
+            tb = cursor.moveToFirst();
+
+        Result result = new Result();
+
+        if (!tb) {
+            result.setTrackId(-1);
+            return result;
+        }
+
+        result.setTrackId(Integer.parseInt(cursor.getString(0)));
+        result.setTrackName(cursor.getString(1));
+        result.setArtistName(cursor.getString(2));
+        result.setCollectionName(cursor.getString(3));
+        result.setArtworkUrl100(cursor.getString(4));
+        result.setPreviewUrl(cursor.getString(5));
+        result.setTrackExplicitness(cursor.getString(6));
+        result.setTrackPrice(Double.parseDouble(cursor.getString(7)));
+        result.setKind(cursor.getString(8));
+        result.setWrapperType(cursor.getString(9));
+
+        return result;
+    }
+
     public List<Result> getAll() {
         List<Result> list = new ArrayList<Result>();
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
