@@ -43,7 +43,7 @@ public class ResultDetailActivity extends AppCompatActivity {
 
         //set the price
         TextView price = (TextView) findViewById(R.id.result_detail_price);
-        if(result.getTrackPrice() == -1)
+        if(result.getTrackPrice() != -1)
             price.setText("$" + result.getTrackPrice().toString());
         else
             price.setVisibility(View.INVISIBLE);
