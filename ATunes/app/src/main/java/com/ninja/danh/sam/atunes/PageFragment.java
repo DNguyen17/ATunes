@@ -88,9 +88,6 @@ public class PageFragment extends Fragment {
             @Override
             public void success(ITunesObj iTunesObj, Response response) {
                 tracks = iTunesObj.getResults();
-                for (int i = 0; i < tracks.size(); i++) {
-                    Log.i("success", tracks.get(i).getTrackName());
-                }
 
                 Intent intent = new Intent(getActivity(), ResultsActivity.class);
                 intent.putParcelableArrayListExtra("results", (ArrayList)tracks);
