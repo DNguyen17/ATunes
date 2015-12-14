@@ -139,7 +139,10 @@ public class Result implements Parcelable {
         dest.writeString(kind);
         dest.writeString(artistName);
         dest.writeString(trackName);
-        dest.writeDouble(trackPrice);
+        if (trackPrice != null)
+            dest.writeDouble(trackPrice);
+        else
+            dest.writeDouble(-1);
         dest.writeString(trackExplicitness);
     }
 
