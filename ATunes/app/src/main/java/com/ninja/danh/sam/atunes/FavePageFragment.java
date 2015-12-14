@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
 // In this case, the fragment displays simple text based on the page
 public class FavePageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
+    ArrayList<Result> results;
+    ListView resultsView;
     private int mPage;
 
     public static FavePageFragment newInstance(int page) {
@@ -50,9 +52,9 @@ public class FavePageFragment extends Fragment {
         View view;
         view = inflater.inflate(R.layout.fave_page, container, false);
         ButterKnife.bind(this, view);
-        ArrayList<Result> results = (ArrayList)getFavorites();
+        results = (ArrayList)getFavorites();
 
-        ListView resultsView = (ListView) view.findViewById(R.id.resultsListViewFav);
+        resultsView = (ListView) view.findViewById(R.id.resultsListViewFav);
         resultsView.setAdapter(new MusicItemListAdapter(getActivity(), R.layout.list_result_item ,results));
 
         return view;
@@ -67,6 +69,12 @@ public class FavePageFragment extends Fragment {
         }*/
 
         return favs;
+    }
+
+    public void notifyChange() {
+        results = (ArrayList)getFavorites();
+
+        resultsView.setAdapter(new MusicItemListAdapter(getActivity(), R.layout.list_result_item ,results));
     }
 
     public class MusicItemListAdapter extends ArrayAdapter<Result> {

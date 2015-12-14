@@ -1,17 +1,25 @@
 package com.ninja.danh.sam.atunes;
 
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class ResultDetailActivity extends AppCompatActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+public class ResultDetailActivity extends AppCompatActivity {
+    @Bind(R.id.favorite_button) Button favoriteButton;
+    Result result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +31,8 @@ public class ResultDetailActivity extends AppCompatActivity {
         Log.d("result detail", result_detail.getArtworkUrl100());
         setImage(result_detail.getArtworkUrl100());
         loadDetails(result_detail);
+        ButterKnife.bind(this);
+        result = result_detail;
     }
 
     protected void setImage(String image_url) {
@@ -45,6 +55,19 @@ public class ResultDetailActivity extends AppCompatActivity {
         //set the price
         TextView price = (TextView) findViewById(R.id.result_detail_price);
         price.setText(result.getTrackPrice().toString());
+
+    }
+
+    @OnClick (R.id.favorite_button)
+    public void addToFavorites() {
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
+        dbHandler.addFavorite(result);
+        /*Fragment frg = getSupportFragmentManager().findFragmentById(R.id.viewpager);
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();*/
+
 
     }
 }
