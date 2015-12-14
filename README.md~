@@ -16,5 +16,5 @@ We removed Shakira from our favorites (no offense Shakira) and we added Harry Po
 
 ##Technology
 1. We used SQLite for the backend
-3. We implemented our main activity with tab layout and fragments that link to new activities
+3. We used the material design library to implement our main activity with tab layout and fragments that link to new activities
 4. We used glide, retrofit as well as jsonschema2pojo.org to develop this app

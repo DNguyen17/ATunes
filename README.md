@@ -5,7 +5,8 @@ iTunes for Androids
 
 Video link: https://www.youtube.com/watch?v=_Xl1UXm7aKM&feature=youtu.be
 
-We removed Shakira from our favorites (no offense Shakira) and we added Harry Potter and The Hills to it
+We removed Shakira from our favorites tab (no offense Shakira) and we added Harry Potter and The Hills to it. 
+Then we (almost forgot to) show those new items in our favorites tab
 
 
 ##Functionality
