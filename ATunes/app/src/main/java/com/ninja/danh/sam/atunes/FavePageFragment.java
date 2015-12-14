@@ -102,7 +102,6 @@ public class FavePageFragment extends Fragment {
             Log.d("create table", track.getTrackName());
             TextView title = (TextView)row.findViewById(R.id.result_item_title);
             TextView artist = (TextView)row.findViewById(R.id.result_item_artist);
-            TextView price = (TextView)row.findViewById(R.id.result_item_price);
             TextView explicit = (TextView)row.findViewById(R.id.result_item_explicitness);
 
             if (track.getTrackExplicitness().equals("explicit")) {
@@ -111,7 +110,6 @@ public class FavePageFragment extends Fragment {
 
             title.setText(track.getTrackName());
             artist.setText(track.getArtistName());
-            price.setText(track.getTrackPrice().toString());
 
             return row;
         }

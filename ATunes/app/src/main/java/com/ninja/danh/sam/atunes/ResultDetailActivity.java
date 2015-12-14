@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -19,8 +20,6 @@ public class ResultDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Result result_detail = intent.getParcelableExtra("result");
-        Log.d("result detail", result_detail.getTrackName());
-        Log.d("result detail", result_detail.getArtworkUrl100());
         setImage(result_detail.getArtworkUrl100());
         loadDetails(result_detail);
     }
@@ -44,7 +43,18 @@ public class ResultDetailActivity extends AppCompatActivity {
 
         //set the price
         TextView price = (TextView) findViewById(R.id.result_detail_price);
-        price.setText(result.getTrackPrice().toString());
+        if(result.getTrackPrice() == -1)
+            price.setText("$" + result.getTrackPrice().toString());
+        else
+            price.setVisibility(View.INVISIBLE);
+
+        //set description
+        TextView description = (TextView) findViewById(R.id.result_detail_description);
+        if (result.getDescription().length() == 0) {
+            description.setVisibility(View.INVISIBLE);
+        } else {
+            description.setText(result.getDescription());
+        }
 
     }
 }
