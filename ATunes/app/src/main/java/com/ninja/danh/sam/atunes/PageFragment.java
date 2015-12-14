@@ -98,14 +98,12 @@ public class PageFragment extends Fragment {
     public void searchItem(View view) {
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        String term = simpleSearchField.getText().toString();
 
-        if (term.length() == 0) {
-            simpleSearchField.setError("What do you want to search?");
+        String url = getQueryURL();
+
+        if (url.length() == 0)
             return;
-        }
-        term = term.replace(' ', '+');
-        String url = "https://itunes.apple.com/search?term=" + term + "&entity=" + queryType + "&limit=5";
+
         RestAdapter retrofit = new RestAdapter.Builder()
                 .setEndpoint(url)
                 .build();
@@ -127,6 +125,35 @@ public class PageFragment extends Fragment {
                 Log.i("fail", error.toString());
             }
         });
+    }
+
+    public String getQueryURL() {
+        String url = "";
+        if (!advancedSearch) {
+            String term = simpleSearchField.getText().toString();
+
+            if (term.length() == 0) {
+                simpleSearchField.setError("What do you want to search?");
+                return "";
+            }
+            term = term.replace(' ', '+');
+            url = "https://itunes.apple.com/search?term=" + term + "&entity=" + queryType + "&limit=5";
+        } else {
+            String title_advance = advancedSearchTitleField.getText().toString().replace(" ", "+");
+            String artist_advance = advancedSearchArtistField.getText().toString().replace(" ", "+");
+            String genre_advance = advancedSearchGenreField.getText().toString().replace(" ", "+");
+
+            String term = title_advance + "+" + artist_advance + "+" + genre_advance;
+
+            if (term.length() == 0) {
+                advancedSearchTitleField.setError("What do you want to search?");
+                return "";
+            }
+
+            url = "https://itunes.apple.com/search?term=" + term + "&entity=" + queryType + "&limit=5";
+        }
+
+        return url;
     }
 
     @OnClick(R.id.advancedSearchSwitchButton)

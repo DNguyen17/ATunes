@@ -135,7 +135,10 @@ public class Result implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(artistId);
+        if (artistId == null)
+            dest.writeInt(-1);
+        else
+            dest.writeInt(artistId);
         dest.writeString(kind);
         dest.writeString(artistName);
         dest.writeString(trackName);
@@ -143,7 +146,11 @@ public class Result implements Parcelable {
             dest.writeDouble(trackPrice);
         else
             dest.writeDouble(-1);
-        dest.writeString(trackExplicitness);
+
+        if (trackExplicitness != null)
+            dest.writeString(trackExplicitness);
+        else
+            dest.writeString("");
         dest.writeString(artworkUrl100);
     }
 
