@@ -55,6 +55,8 @@ public class PageFragment extends Fragment {
 
     private List<Result> tracks;
 
+    private String queryType;
+
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -103,7 +105,7 @@ public class PageFragment extends Fragment {
             return;
         }
         term = term.replace(' ', '+');
-        String url = "https://itunes.apple.com/search?term=" + term + "&limit=5";
+        String url = "https://itunes.apple.com/search?term=" + term + "&entity=" + queryType + "&limit=5";
         RestAdapter retrofit = new RestAdapter.Builder()
                 .setEndpoint(url)
                 .build();
@@ -170,7 +172,7 @@ public class PageFragment extends Fragment {
             Log.d("selected media type", selected);
 
             handleMediaChange(selected);
-            
+
         }
 
         public void onNothingSelected(AdapterView<?> parent) {
@@ -182,12 +184,17 @@ public class PageFragment extends Fragment {
     public void handleMediaChange(String newMedia) {
         media = translateStringtoMediaType(newMedia);
 
+        String m_type = getQueryBoxString(media);
+
         //change the text in the query edittext
-        simpleSearchField.setText(changeQueryBox(media));
+        simpleSearchField.setHint(m_type);
+
+        //change query type
+        queryType = getQueryType(media);
 
     }
 
-    public String changeQueryBox(mediaType m_type) {
+    public String getQueryBoxString(mediaType m_type) {
         switch (m_type) {
             case MUSICVIDEO: return getString(R.string.music_video_text);
             case MUSIC:      return getString(R.string.music_text);
@@ -208,6 +215,18 @@ public class PageFragment extends Fragment {
             case "PODCAST"    : return mediaType.PODCAST;
             case "TVSHOW"     : return mediaType.TVSHOW;
             default           : return mediaType.MUSICVIDEO;
+        }
+    }
+
+    public String getQueryType(mediaType m_type) {
+        switch (m_type) {
+            case MUSICVIDEO: return getString(R.string.music_video_query);
+            case MUSIC:      return getString(R.string.music_query);
+            case MOVIE:      return getString(R.string.movie_query);
+            case EBOOK:      return getString(R.string.ebook_query);
+            case PODCAST:    return getString(R.string.podcast_query);
+            case TVSHOW:     return getString(R.string.tv_show_query);
+            default:         return getString(R.string.music_video_query);
         }
     }
 }
