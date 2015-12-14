@@ -58,9 +58,9 @@
             android:textSize="@dimen/medium_font"
             android:id="@+id/result_detail_description"
             android:layout_below="@+id/result_detail_price"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="50dp"/>
 
         <Button
             android:layout_width="wrap_content"
