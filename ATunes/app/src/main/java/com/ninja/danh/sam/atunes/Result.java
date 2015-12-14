@@ -1,7 +1,11 @@
 package com.ninja.danh.sam.atunes;
 
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
+import android.os.Parcel;
+import android.os.Parcelable;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -49,7 +53,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "collectionArtistId",
         "collectionArtistName"
 })
-public class Result {
+public class Result implements Parcelable {
+
 
     @JsonProperty("wrapperType")
     private String wrapperType;
@@ -123,6 +128,45 @@ public class Result {
     private String collectionArtistName;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public Result() {
+        super();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(artistId);
+        dest.writeString(kind);
+        dest.writeString(artistName);
+        dest.writeString(trackName);
+        dest.writeDouble(trackPrice);
+        dest.writeString(trackExplicitness);
+    }
+
+    public int describeContents() {
+        // ignore for now
+        return 0;
+    }
+
+    /** Static field used to regenerate object, individually or as arrays */
+    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+        public Result createFromParcel(Parcel pc) {
+            return new Result(pc);
+        }
+        public Result[] newArray(int size) {
+            return new Result[size];
+        }
+    };
+
+    /**Ctor from Parcel, reads back fields IN THE ORDER they were written */
+    public Result(Parcel pc) {
+        artistId        = pc.readInt();
+        kind            = pc.readString();
+        artistName      = pc.readString();
+        trackName       = pc.readString();
+        trackPrice      = pc.readDouble();
+        trackExplicitness = pc.readString();
+    }
 
     /**
      *

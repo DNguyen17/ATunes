@@ -1,7 +1,9 @@
 package com.ninja.danh.sam.atunes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -28,6 +31,8 @@ public class PageFragment extends Fragment {
     @Bind(R.id.advancedSearchSwitchButton) Button advancedButton;
     @Bind(R.id.simpleSearchField) EditText simpleSearchField;
     private int mPage;
+
+    private List<Result> tracks;
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -77,14 +82,19 @@ public class PageFragment extends Fragment {
                 .setEndpoint(url)
                 .build();
 
+
         ITunesAPI api = retrofit.create(ITunesAPI.class);
         api.searchItem(new Callback<ITunesObj>() {
             @Override
             public void success(ITunesObj iTunesObj, Response response) {
-                List<Result> tracks = iTunesObj.getResults();
+                tracks = iTunesObj.getResults();
                 for (int i = 0; i < tracks.size(); i++) {
                     Log.i("success", tracks.get(i).getTrackName());
                 }
+
+                Intent intent = new Intent(getActivity(), ResultsActivity.class);
+                intent.putParcelableArrayListExtra("results", (ArrayList)tracks);
+                startActivity(intent);
             }
 
             @Override
