@@ -145,4 +145,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         onCreate(db);
 
     }
+
+    public void deleteFave(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, "trackName = ?", new String[]{name});
+        db.close();
+    }
 }

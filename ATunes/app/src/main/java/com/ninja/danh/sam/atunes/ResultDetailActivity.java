@@ -76,7 +76,10 @@ public class ResultDetailActivity extends AppCompatActivity {
     @OnClick (R.id.favorite_button)
     public void addToFavorites() {
         DatabaseHandler dbHandler = new DatabaseHandler(this);
-        dbHandler.addFavorite(result);
+        if (!isFavorite())
+            dbHandler.addFavorite(result);
+        else
+            dbHandler.deleteFave(result.getTrackName());
         /*Fragment frg = getSupportFragmentManager().findFragmentById(R.id.viewpager);
         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.detach(frg);
