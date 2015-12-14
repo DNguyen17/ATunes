@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
 // In this case, the fragment displays simple text based on the page
 public class FavePageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
+    ArrayList<Result> results;
+    ListView resultsView;
     private int mPage;
 
     public static FavePageFragment newInstance(int page) {
@@ -50,9 +52,9 @@ public class FavePageFragment extends Fragment {
         View view;
         view = inflater.inflate(R.layout.fave_page, container, false);
         ButterKnife.bind(this, view);
-        ArrayList<Result> results = (ArrayList)getFavorites();
+        results = (ArrayList)getFavorites();
 
-        ListView resultsView = (ListView) view.findViewById(R.id.resultsListViewFav);
+        resultsView = (ListView) view.findViewById(R.id.resultsListViewFav);
         resultsView.setAdapter(new MusicItemListAdapter(getActivity(), R.layout.list_result_item ,results));
 
         return view;
@@ -67,6 +69,12 @@ public class FavePageFragment extends Fragment {
         }*/
 
         return favs;
+    }
+
+    public void notifyChange() {
+        results = (ArrayList)getFavorites();
+
+        resultsView.setAdapter(new MusicItemListAdapter(getActivity(), R.layout.list_result_item ,results));
     }
 
     public class MusicItemListAdapter extends ArrayAdapter<Result> {
@@ -86,30 +94,36 @@ public class FavePageFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             View row;
-            /*LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE );
-            row = inflater.inflate(resource, parent, false);*/
-
             if (convertView == null) {
-                //LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 row = inflater.inflate(resource, parent, false);
             } else {
-                Log.d("recycleview", "I am recycling a view for element " + position);
+                //Log.d("recycleview", "I am recycling a view for element " + position);
                 row = convertView;
             }
 
             final Result track = objects.get(position);
-            Log.d("create table", track.getTrackName());
             TextView title = (TextView)row.findViewById(R.id.result_item_title);
             TextView artist = (TextView)row.findViewById(R.id.result_item_artist);
             TextView explicit = (TextView)row.findViewById(R.id.result_item_explicitness);
 
             if (track.getTrackExplicitness().equals("explicit")) {
                 explicit.setText("E");
+                //Log.d("explicitness", track.getTrackName());
             }
 
             title.setText(track.getTrackName());
             artist.setText(track.getArtistName());
+
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ResultDetailActivity.class);
+                    intent.putExtra("result", track);
+                    startActivity(intent);
+                }
+            });
 
             return row;
         }
