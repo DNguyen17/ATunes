@@ -60,7 +60,7 @@
             android:layout_below="@+id/result_detail_price"
             android:paddingTop="10dp"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="20dp"/>
+            android:layout_marginBottom="50dp"/>
 
         <Button
             android:layout_width="wrap_content"
