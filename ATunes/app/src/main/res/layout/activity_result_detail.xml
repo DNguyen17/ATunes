@@ -65,7 +65,8 @@
             android:layout_height="wrap_content"
             android:text="@string/add_favorite"
             android:id="@+id/button"
-            android:paddingTop="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/result_detail_price"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>

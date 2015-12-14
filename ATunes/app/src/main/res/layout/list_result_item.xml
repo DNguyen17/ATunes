@@ -17,7 +17,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:textColor="@color/red"
             android:id="@+id/result_item_explicitness"
             android:textSize="@dimen/large_font" />
