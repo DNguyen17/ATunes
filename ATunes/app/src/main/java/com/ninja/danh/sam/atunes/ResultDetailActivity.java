@@ -34,7 +34,17 @@ public class ResultDetailActivity extends AppCompatActivity {
     }
 
     protected void loadDetails(Result result) {
+        //set the title
         TextView title = (TextView) findViewById(R.id.result_detail_title);
         title.setText(result.getTrackName());
+
+        //set the artist name
+        TextView artist = (TextView) findViewById(R.id.result_detail_artist);
+        artist.setText(result.getArtistName());
+
+        //set the price
+        TextView price = (TextView) findViewById(R.id.result_detail_price);
+        price.setText(result.getTrackPrice().toString());
+
     }
 }

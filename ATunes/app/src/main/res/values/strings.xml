@@ -9,6 +9,25 @@
     <string name="hello_world">Hello world!</string>
 
     <string name="action_settings">Settings</string>
+    <string name="add_favorite">Add To Favorites</string>
+
+    <string name="spinner_title">Select Media Type</string>
+
+    <string-array name="media_choices">
+        <item>Music Video</item>
+        <item>Music</item>
+        <item>Movie</item>
+        <item>Ebook</item>
+        <item>Podcast</item>
+        <item>TV Show</item>
+    </string-array>
+
+    <string name="music_video_text">Music Video Search Terms</string>
+    <string name="music_text">Music Search Terms</string>
+    <string name="podcast_text">Podcast Search Terms</string>
+    <string name="ebook_text">Ebook Search Terms</string>
+    <string name="tv_show_text">Podcast Search Terms</string>
+    <string name="movie_text">Movie Search Terms</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
