@@ -144,6 +144,7 @@ public class Result implements Parcelable {
         else
             dest.writeDouble(-1);
         dest.writeString(trackExplicitness);
+        dest.writeString(artworkUrl100);
     }
 
     public int describeContents() {
@@ -169,6 +170,7 @@ public class Result implements Parcelable {
         trackName       = pc.readString();
         trackPrice      = pc.readDouble();
         trackExplicitness = pc.readString();
+        artworkUrl100   = pc.readString();
     }
 
     /**
